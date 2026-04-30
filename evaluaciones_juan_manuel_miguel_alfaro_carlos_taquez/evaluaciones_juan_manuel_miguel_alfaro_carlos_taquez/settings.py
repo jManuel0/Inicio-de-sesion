@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'calificaciones_juan_manuel_miguel_alfaro_carlos_taquez',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'calificaciones_juan_manuel_miguel_alfaro_carlos_taquez',
     'usuarios',
 ]
 
