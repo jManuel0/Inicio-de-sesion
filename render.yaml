@@ -1,0 +1,24 @@
+databases:
+  - name: calificaciones-db
+    plan: free
+    databaseName: calificaciones
+    user: calificaciones
+
+services:
+  - type: web
+    name: calificaciones-django
+    runtime: python
+    plan: free
+    buildCommand: bash build.sh
+    startCommand: cd evaluaciones_juan_manuel_miguel_alfaro_carlos_taquez && python -m gunicorn evaluaciones_juan_manuel_miguel_alfaro_carlos_taquez.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: calificaciones-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
+      - key: PYTHON_VERSION
+        value: 3.13.5
