@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar calificacion</title>
+</head>
+<body>
+    <h1>Eliminar calificacion</h1>
+
+    <p>¿Deseas eliminar la calificacion de {{ object.estudiante }} en {{ object.asignatura }}?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Eliminar</button>
+        <a href="{% url 'listar' %}">Cancelar</a>
+    </form>
+</body>
+</html>
