@@ -17,11 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
-    'django-insecure-ckfq@!&%jxo3q)vofb27oi+k0a6vx1ift@2wi_jx6id^bei58f',
+    os.environ.get(
+        'DJANGO_SECRET_KEY',
+        'django-insecure-ckfq@!&%jxo3q)vofb27oi+k0a6vx1ift@2wi_jx6id^bei58f',
+    ),
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False' if os.environ.get('RENDER') else 'True') == 'True'
+IS_DEPLOYED = os.environ.get('RENDER') or os.environ.get('VERCEL')
+DEBUG = os.environ.get('DEBUG', 'False' if IS_DEPLOYED else 'True') == 'True'
 
 ALLOWED_HOSTS = [
     host.strip()
@@ -33,6 +37,12 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+VERCEL_URL = os.environ.get('VERCEL_URL')
+if VERCEL_URL:
+    ALLOWED_HOSTS.append(VERCEL_URL)
+
+ALLOWED_HOSTS.append('.vercel.app')
+
 CSRF_TRUSTED_ORIGINS = [
     origin.strip()
     for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',')
@@ -41,6 +51,9 @@ CSRF_TRUSTED_ORIGINS = [
 
 if RENDER_EXTERNAL_HOSTNAME:
     CSRF_TRUSTED_ORIGINS.append(f'https://{RENDER_EXTERNAL_HOSTNAME}')
+
+if VERCEL_URL:
+    CSRF_TRUSTED_ORIGINS.append(f'https://{VERCEL_URL}')
 
 
 # Application definition
