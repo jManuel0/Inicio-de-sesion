@@ -19,14 +19,15 @@ Este proyecto ya incluye los archivos necesarios para desplegar en Render:
 Render creara:
 
 - Un Web Service llamado `calificaciones-django`.
-- Una base de datos PostgreSQL llamada `calificaciones-db`.
-- Variables de entorno para `DATABASE_URL`, `SECRET_KEY`, `WEB_CONCURRENCY` y `PYTHON_VERSION`.
+- Variables de entorno para `SECRET_KEY`, `WEB_CONCURRENCY` y `PYTHON_VERSION`.
+
+Debes configurar manualmente `DATABASE_URL` con el Internal Database URL de una base PostgreSQL existente en Render. Esto evita el error de Render que aparece cuando una cuenta ya tiene una base de datos gratuita activa.
 
 ## Opcion manual
 
 Si prefieres crear el servicio manualmente:
 
-1. Crea una base de datos PostgreSQL en Render.
+1. Crea una base de datos PostgreSQL en Render o usa una existente.
 2. Crea un Web Service conectado al repositorio.
 3. Usa estos comandos:
 
@@ -41,7 +42,7 @@ cd evaluaciones_juan_manuel_miguel_alfaro_carlos_taquez && python -m gunicorn ev
 4. Agrega estas variables:
 
 ```text
-DATABASE_URL=<Internal Database URL de Render PostgreSQL>
+DATABASE_URL=<Internal Database URL de Render PostgreSQL existente>
 SECRET_KEY=<generada por Render>
 WEB_CONCURRENCY=4
 PYTHON_VERSION=3.13.5
