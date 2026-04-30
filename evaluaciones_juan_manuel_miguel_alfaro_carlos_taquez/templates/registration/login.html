@@ -1,15 +1,42 @@
 {% extends "base.html" %}
 
-{% block title %}Iniciar sesión{% endblock %}
+{% block title %}Iniciar sesion{% endblock %}
 
 {% block content %}
-  <h1>Iniciar sesión</h1>
+  <section class="auth-card">
+    <div class="auth-hero">
+      <div class="brand-mark">
+        <span class="brand-dot"></span>
+        <span>Calificaciones</span>
+      </div>
+      <div class="auth-hero-content">
+        <h1>Hola, bienvenido!</h1>
+        <p>Gestiona estudiantes, asignaturas y promedios desde un panel claro y seguro.</p>
+      </div>
+    </div>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Entrar</button>
-  </form>
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+        <h2>Login</h2>
+        <p class="mb-4">Ingresa con tu usuario para continuar.</p>
 
-  <p>¿No tienes cuenta? <a href="{% url 'usuarios:registro' %}">Regístrate</a></p>
+        <form method="post" class="auth-form" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          {{ form.as_p }}
+
+          <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+            <button type="submit" class="btn btn-brand">Login</button>
+            <a href="{% url 'usuarios:registro' %}" class="btn btn-brand-outline">Sign up</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 {% endblock %}

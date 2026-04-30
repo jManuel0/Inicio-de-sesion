@@ -3,13 +3,40 @@
 {% block title %}Registro{% endblock %}
 
 {% block content %}
-  <h1>Registro</h1>
+  <section class="auth-card">
+    <div class="auth-hero">
+      <div class="brand-mark">
+        <span class="brand-dot"></span>
+        <span>Calificaciones</span>
+      </div>
+      <div class="auth-hero-content">
+        <h1>Crea tu cuenta</h1>
+        <p>Empieza a registrar calificaciones y consulta el promedio general en segundos.</p>
+      </div>
+    </div>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Crear cuenta</button>
-  </form>
+    <div class="auth-form-panel">
+      <div class="auth-form-inner">
+        <h2>Sign up</h2>
+        <p class="mb-4">Completa tus datos para acceder al sistema.</p>
 
-  <p>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión</a></p>
+        <form method="post" class="auth-form" novalidate>
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          {{ form.as_p }}
+
+          <div class="d-flex flex-column flex-sm-row gap-2 mt-4">
+            <button type="submit" class="btn btn-brand">Crear cuenta</button>
+            <a href="{% url 'login' %}" class="btn btn-brand-outline">Login</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
 {% endblock %}
