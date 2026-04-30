@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Evaluaciones{% endblock %}</title>
+  </head>
+  <body>
+    <nav>
+      {% if user.is_authenticated %}
+        <span>Hola, {{ user.username }}</span>
+        <a href="{% url 'logout' %}">Salir</a>
+      {% else %}
+        <a href="{% url 'login' %}">Entrar</a>
+        <a href="{% url 'usuarios:registro' %}">Registrarme</a>
+      {% endif %}
+    </nav>
+
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
