@@ -1,0 +1,36 @@
+{% extends 'calificaciones/base.html' %}
+
+{% block title %}Crear calificacion{% endblock %}
+
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-8">
+      <div class="content-panel p-4 p-md-5">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 mb-4">
+          <div>
+            <h1 class="h3 mb-1">Crear calificacion</h1>
+            <p class="text-secondary mb-0">Registra las notas del estudiante y el promedio se calculara automaticamente.</p>
+          </div>
+          <a href="{% url 'calificaciones:listar' %}" class="btn btn-outline-secondary align-self-md-start">Volver</a>
+        </div>
+
+        <form method="post" novalidate class="form-panel">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors }}
+            </div>
+          {% endif %}
+
+          {{ form.as_p }}
+
+          <div class="d-flex flex-column flex-sm-row gap-2 justify-content-end mt-4">
+            <a href="{% url 'calificaciones:listar' %}" class="btn btn-outline-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Guardar calificacion</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
